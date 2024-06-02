@@ -1,0 +1,39 @@
+<!-- speech_recognition_app/templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 py-8 px-4">
+    <div class="max-w-lg mx-auto bg-white rounded-lg p-6 shadow-lg">
+        <h1 class="text-2xl font-bold mb-4">Speech Recognition</h1>
+        <button id="recognize-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Recognize Speech</button>
+        <p id="transcription" class="mt-4"></p>
+        {% load static %}
+        <audio id="start-sound" src="{% static 'audios/start.wav' %}" preload="auto"></audio>
+
+        <script>
+            document.getElementById('recognize-button').addEventListener('click', function() {
+                var button = this;
+                var audio = document.getElementById('start-sound');
+
+                button.disabled = true;
+                button.textContent = 'Listening...';
+                audio.play();
+
+                fetch('/recognize/')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('transcription').innerText = data.transcription;
+                        button.textContent = 'Recognize Speech';
+                        button.disabled = false;
+                    });
+            });
+        </script>
+    </div>
+</body>
+</html>
