@@ -3,46 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech Recognition</title>
+    <title>T4U - Speech Recognition</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f0f4ff, #e0eafc);
+            transition: background 0.5s ease;
+        }
+        .monoton-regular {
+            font-family: "Monoton", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .notepad {
+            background: linear-gradient(white 20px, transparent 1%) center/15px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            resize: none;
+            height: 200px;
+        }
+        .notepad-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 py-8 px-4">
-    <div class="max-w-lg mx-auto bg-white rounded-lg p-6 shadow-lg">
-        <h1 class="text-2xl font-bold mb-4">Speech Recognition</h1>
-        <button id="recognize-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Recognize Speech</button>
-        <div id="listening-indicator" class="mt-4 hidden text-green-500">Listening...</div>
-        <p id="transcription" class="mt-4"></p>
-        <audio id="start-sound" src="{% static 'audios/start.wav' %}" preload="auto"></audio>
+<body class="bg-gray-100 transition-colors duration-500">
 
-        <script>
-            document.getElementById('recognize-button').addEventListener('click', function() {
-                var button = this;
-                var audio = document.getElementById('start-sound');
-                var listeningIndicator = document.getElementById('listening-indicator');
-                var transcription = document.getElementById('transcription');
+    <!-- Navigation -->
+    <nav class="w-full p-4 shadow-md bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-900">T4U</div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-blue-900 font-semibold">Contact Us</a>
+                <a href="#" class="text-blue-900 font-semibold">Home</a>
+                <a href="#" class="text-blue-900 font-semibold">Features</a>
+            </div>
+        </div>
+    </nav>
 
-                button.disabled = true;
-                button.textContent = 'Listening...';
-                listeningIndicator.classList.remove('hidden');
-                audio.play();
+    <!-- Main Content -->
+    <div class="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 flex flex-col items-center justify-center pt-8">
+        <!-- Title and Description -->
+        <div class="relative text-center mb-8">
+            <h1 class="monoton-regular relative text-6xl font-bold text-white font-mono">T4U</h1>
+        </div>
+        <div class="max-w-2xl mx-auto px-4 text-center mb-16">
+            <p class="text-lg text-white">
+                Meet T4U, your personal speech-to-text companion! Say it, and T4U transcribes your words
+                instantly. Communicate effortlessly for messaging, note-taking, and chatting. Empower your
+                voice with T4U and experience seamless communication today!
+            </p>
+        </div>
 
-                fetch('/recognize/')
-                    .then(response => response.json())
-                    .then(data => {
-                        transcription.innerText = data.transcription;
-                        button.textContent = 'Recognize Speech';
-                        button.disabled = false;
-                        listeningIndicator.classList.add('hidden');
-                    })
-                    .catch(error => {
-                        transcription.innerText = 'Error recognizing speech: ' + error;
-                        button.textContent = 'Recognize Speech';
-                        button.disabled = false;
-                        listeningIndicator.classList.add('hidden');
-                    });
-            });
-        </script>
+        <!-- Speech Recognition Section -->
+        <div class="max-w-5xl mx-auto bg-white rounded-lg p-6 shadow-lg mt-8 flex flex-col items-center">
+            <h1 class="text-2xl font-bold text-blue-900 mb-4">Speech Recognition</h1>
+            <button id="recognize-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4">Recognize Speech</button>
+            
+            <div class="w-full notepad-container">
+                <textarea id="transcription-edit" class="notepad w-full rounded border p-2" rows="10" readonly placeholder="Your transcription will appear here..."></textarea>
+            </div>
+            
+            <div class="flex mt-4 space-x-4">
+                <button id="copy-button" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Copy Transcript</button>
+                <button id="download-button" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600">Download Transcript</button>
+            </div>
+        </div>
     </div>
+
+    {% load static %}
+    <audio id="start-sound" src="{% static 'audios/start.wav' %}" preload="auto"></audio>
+
+    <script>
+        document.getElementById('recognize-button').addEventListener('click', function() {
+            var button = this;
+            var audio = document.getElementById('start-sound');
+            var transcriptionEdit = document.getElementById('transcription-edit');
+            var copyButton = document.getElementById('copy-button');
+            var downloadButton = document.getElementById('download-button');
+
+            button.disabled = true;
+            button.textContent = 'Listening...';
+            audio.play();
+
+            fetch('/recognize/')
+                .then(response => response.json())
+                .then(data => {
+                    transcriptionEdit.value = data.transcription;
+                    copyButton.classList.remove('hidden');
+                    downloadButton.classList.remove('hidden');
+                    button.textContent = 'Recognize Speech';
+                    button.disabled = false;
+                });
+        });
+
+        document.getElementById('copy-button').addEventListener('click', function() {
+            var transcriptionEdit = document.getElementById('transcription-edit');
+            transcriptionEdit.select();
+            document.execCommand('copy');
+            alert('Transcript copied to clipboard');
+        });
+
+        document.getElementById('download-button').addEventListener('click', function() {
+            var transcriptionEdit = document.getElementById('transcription-edit');
+            var blob = new Blob([transcriptionEdit.value], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'transcript.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const body = document.body;
+
+            if (scrollPosition > 100) {
+                body.classList.add('gradient-scroll');
+                body.classList.remove('gradient-scroll-reverse');
+            } else {
+                body.classList.add('gradient-scroll-reverse');
+                body.classList.remove('gradient-scroll');
+            }
+        });
+    </script>
 </body>
 </html>
