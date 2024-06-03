@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T4U - Speech Recognition</title>
+    <link rel="icon" href="{% static 'images/T.png' %}" >
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <style>
+        
         body {
             background: linear-gradient(to bottom, #f0f4ff, #e0eafc);
             transition: background 0.5s ease;
@@ -42,11 +45,11 @@
     <!-- Navigation -->
     <nav class="w-full p-4 shadow-md bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-blue-900">T4U</div>
+            <div class="text-2xl  text-white"><a href="#">T4U</a></div>
             <div class="flex space-x-4">
-                <a href="#" class="text-blue-900 font-semibold">Contact Us</a>
-                <a href="#" class="text-blue-900 font-semibold">Home</a>
-                <a href="#" class="text-blue-900 font-semibold">Features</a>
+                <a href="#" class="text-white font-semibold">Contact Us</a>
+                <a href="#" class="text-white font-semibold">Home</a>
+                <a href="#" class="text-white font-semibold">Features</a>
             </div>
         </div>
     </nav>
@@ -66,8 +69,8 @@
         </div>
 
         <!-- Speech Recognition Section -->
-        <div class="max-w-5xl mx-auto bg-white rounded-lg p-6 shadow-lg mt-8 flex flex-col items-center">
-            <h1 class="text-2xl font-bold text-blue-900 mb-4">Speech Recognition</h1>
+        <div class="max-w-5xl mx-auto bg-white/100 backdrop-blur-md hover:backdrop-blur-lg rounded-lg p-6 shadow-lg mt-8 flex flex-col items-center">
+            <h1 class="text-2xl  text-white mb-4">Click to Recognize </h1>
             <button id="recognize-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4">Recognize Speech</button>
             
             <div class="w-full notepad-container">
