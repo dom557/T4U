@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T4U - Speech Recognition</title>
+    <link rel="icon" href="{% static 'images/T.png' %}" >
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <style>
+        
+        .monoton-regular {
+            font-family: "Monoton", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .notepad {
+            background: linear-gradient(white 20px, transparent 1%) center/15px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            resize: none;
+            height: 200px;
+        }
+        .notepad-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class=" bg-white">
+
+    <!-- Navigation -->
+    <nav class=" bg-white/100 w-full p-4  fixed top-0 w-full">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl  text-black"><a href="/">T4U</a></div>
+            <div class="flex space-x-4">
+                <a href="/contact" class="text-black font-semibold">Contact Us</a>
+                <a href="/" class="text-black font-semibold">Home</a>
+                <a href="/features" class="text-black font-semibold">Features</a>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    <main >
+    </main>
+    {% endblock %}

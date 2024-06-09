@@ -10,3 +10,6 @@ def speech_recognition_view(request):
 
 def index(request):
     return render(request, 'index.html')
+
+def features(request ):
+    return render(request, 'features.html')

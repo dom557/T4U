@@ -18,10 +18,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from speech_recognition_app.views import speech_recognition_view, index
+from speech_recognition_app.views import speech_recognition_view, index , features
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    # the feature page
+    path('features/' , features, name='features'),
     path('recognize/', speech_recognition_view, name='recognize_speech'),
 ]
