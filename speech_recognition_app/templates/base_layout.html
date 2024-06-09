@@ -9,13 +9,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
-        
         .monoton-regular {
             font-family: "Monoton", sans-serif;
             font-weight: 400;
             font-style: normal;
         }
+
+        .tourney-regular {
+            font-family: "Tourney", sans-serif;
+            font-weight: 400; /* Example weight, you can adjust from 100 to 900 */
+            font-style: normal;
+        }
+
         .notepad {
             background: linear-gradient(white 20px, transparent 1%) center/15px 15px;
             font-family: 'Courier New', Courier, monospace;
@@ -35,12 +42,12 @@
         }
     </style>
 </head>
-<body class=" bg-white">
+<body class="bg-white">
 
     <!-- Navigation -->
-    <nav class=" bg-white/100 w-full p-4  fixed top-0 w-full">
+    <nav class="bg-white/100 w-full p-4 fixed top-0 w-full">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="text-2xl  text-black"><a href="/">T4U</a></div>
+            <div class="tourney-regular text-2xl text-black"><a href="/">T4U</a></div>
             <div class="flex space-x-4">
                 <a href="/contact" class="text-black font-semibold">Contact Us</a>
                 <a href="/" class="text-black font-semibold">Home</a>
@@ -49,6 +56,8 @@
         </div>
     </nav>
     {% block content %}
-    <main >
+    <main>
     </main>
     {% endblock %}
+</body>
+</html>

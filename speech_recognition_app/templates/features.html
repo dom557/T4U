@@ -1,9 +1,9 @@
 {% extends 'base_layout.html' %}
 {%block content%}
    <!-- Speech Recognition Section -->
-      <div class=" max-w-5xl mx-auto   bg-white/100 backdrop-blur-md hover:backdrop-blur-lg rounded-lg p-6 shadow-lg mt-8 flex flex-col items-center">
+      <div class=" max-w-5xl mx-auto   bg-white/100 backdrop-blur-md hover:backdrop-blur-lg rounded-lg p-6 shadow-lg mt-16 flex flex-col items-center">
         <h1 class="text-2xl  text-black mb-4">Click to Recognize </h1>
-        <button id="recognize-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4">Recognize Speech</button>
+        <button id="recognize-button" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mb-4">Recognize Speech</button>
         
         <div class="w-full notepad-container">
             <textarea id="transcription-edit" class="notepad w-full rounded border p-2" rows="10" readonly placeholder="Your transcription will appear here..."></textarea>
@@ -11,7 +11,10 @@
         
         <div class="flex mt-4 space-x-4">
             <button id="copy-button" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Copy Transcript</button>
-            <button id="download-button" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600">Download Transcript</button>
+            <button id="download-button" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 inline-flex items-center">
+                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                <span>Download Transcript</span>
+            </button>
         </div>
     </div>
 </div>
